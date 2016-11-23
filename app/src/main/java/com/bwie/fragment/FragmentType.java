@@ -48,7 +48,7 @@ public class FragmentType extends BaseFragment {
     private LeftRecyclerView_Adapter leftadapter;
     private List<RsBean> rs;
     private RightRecyclerView_Adapter rightadapter;
-
+    private int index=0;
     @Override
     public int getLayout() {
         return R.layout.fragment_type;
@@ -77,12 +77,12 @@ public class FragmentType extends BaseFragment {
                         outputStream.write(bytes, 0, len);
                     }
                     String json = outputStream.toString("utf-8");
-                    System.out.println("json"+json);
                     final RedBaby redBaby = new Gson().fromJson(json, RedBaby.class);
                     rs = redBaby.getRs();
                     leftRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
+                            rs.get(0).isChecked=true;
                             //设置布局管理器
                             leftRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             //设置适配器
@@ -95,6 +95,9 @@ public class FragmentType extends BaseFragment {
                             leftadapter.setOnRecyclerItemClickListener(new LeftRecyclerView_Adapter.OnRecyclerItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, int position) {
+                                    rs.get(index).isChecked=false;
+                                    rs.get(position).isChecked=true;
+                                    index=position;
                                     update(position);
                                     Toast.makeText(getActivity(),"item"+position,Toast.LENGTH_SHORT).show();
                                 }
@@ -119,8 +122,6 @@ public class FragmentType extends BaseFragment {
                             }
                             rightadapter = new RightRecyclerView_Adapter(AllList,getActivity());
                             rightRecyclerView.setAdapter(rightadapter);
-
-
                             }
                     });
 

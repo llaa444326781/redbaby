@@ -50,7 +50,14 @@ public class HomeActivity extends BaseActivity {
         bts.add(btn_Type);
         bts.add(btn_Buy);
         bts.add(btn_My);
-        addFragment(R.id.mFrameLayout,mFragmentHome);
+
+        addFragment(R.id.mFrameLayout, mFragmentMy);
+        addFragment(R.id.mFrameLayout, mFragmentBuy);
+        addFragment(R.id.mFrameLayout, mFragmentType);
+        addFragment(R.id.mFrameLayout, mFragmentHome);
+        getManger().beginTransaction().hide(mFragmentType);
+        getManger().beginTransaction().hide(mFragmentBuy);
+        getManger().beginTransaction().hide(mFragmentMy);
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -58,16 +65,20 @@ public class HomeActivity extends BaseActivity {
                 // TODO Auto-generated method stub
                 switch (checkedId) {
                     case R.id.btn_home:
-                        replaceFragment(R.id.mFrameLayout,mFragmentHome);
+                        //replaceFragment(R.id.mFrameLayout,mFragmentHome);
+                        getManger().beginTransaction().show(mFragmentHome).hide(mFragmentType).hide(mFragmentBuy).hide(mFragmentMy).commit();
                         break;
                     case R.id.btn_type:
-                        replaceFragment(R.id.mFrameLayout,mFragmentType);
+                        getManger().beginTransaction().show(mFragmentType).hide(mFragmentHome).hide(mFragmentBuy).hide(mFragmentMy).commit();
+                        // replaceFragment(R.id.mFrameLayout, mFragmentType);
                         break;
                     case R.id.btn_buy:
-                        replaceFragment(R.id.mFrameLayout,mFragmentBuy);
+                       // replaceFragment(R.id.mFrameLayout, mFragmentBuy);
+                        getManger().beginTransaction().show(mFragmentBuy).hide(mFragmentHome).hide(mFragmentMy).hide(mFragmentType).commit();
                         break;
                     case R.id.btn_my:
-                        replaceFragment(R.id.mFrameLayout,mFragmentMy);
+                       // replaceFragment(R.id.mFrameLayout, mFragmentMy);
+                        getManger().beginTransaction().show(mFragmentMy).hide(mFragmentHome).hide(mFragmentBuy).hide(mFragmentType).commit();
                         break;
 
                 }

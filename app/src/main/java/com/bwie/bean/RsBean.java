@@ -23,6 +23,7 @@ public  class RsBean {
     private String pcCi;
     private String seoCf;
     private int sort;
+    public boolean isChecked;
     private List<?> advts;
 
     private List<ChildrenBean> children;

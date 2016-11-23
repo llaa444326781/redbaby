@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:padding="10dp"
+    android:background="#F2F2F2"
     tools:context="com.bwie.fragment.FragmentType">
 
     <EditText
@@ -22,12 +23,14 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
+            android:background="#fff"
             android:id="@+id/leftType"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
         <android.support.v7.widget.RecyclerView
+        android:background="#F2F2F2"
             android:id="@+id/rightType"
             android:layout_width="0dp"
             android:layout_height="match_parent"

@@ -1,6 +1,7 @@
 package com.bwie.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,15 @@ public class LeftRecyclerView_Adapter extends RecyclerView.Adapter<LeftRecyclerV
     @Override
     public void onBindViewHolder(LeftRecyclerView_ViewHolder holder, final int position) {
         holder.tv_typename.setText(rsBeen.get(position).getDirName());
+        if(rsBeen.get(position).isChecked){
+            holder.ll.setBackgroundColor(Color.parseColor("#F2F2F2"));
+            holder.tv_typename.setTextColor(Color.parseColor("#F29400"));
+            holder.view.setVisibility(View.VISIBLE);
+
+        }else{
+            holder.tv_typename.setTextColor(Color.BLACK);
+            holder.view.setVisibility(View.INVISIBLE);
+        }
         if (onRecyclerItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

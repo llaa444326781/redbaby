@@ -21,10 +21,14 @@ import okhttp3.Callback;
 /**
  * Created by Liuxiaoyu on 2016/11/8.
  */
-public abstract  class BaseActivity extends AppCompatActivity implements MyInterface{
-    /** 是否沉浸状态栏 **/
+public abstract class BaseActivity extends AppCompatActivity implements MyInterface {
+    /**
+     * 是否沉浸状态栏
+     **/
     private boolean isSetStatusBar = true;
-    /** 日志输出标志 **/
+    /**
+     * 日志输出标志
+     **/
     protected final String TAG = this.getClass().getSimpleName();
 
     private View view;
@@ -33,12 +37,13 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        if(getLayout()!=0){
-            int layout=getLayout();
-            view = View.inflate(this, layout,null);
+        if (getLayout() != 0) {
+            int layout = getLayout();
+            view = View.inflate(this, layout, null);
             supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
             setContentView(view);
-            if(isSetStatusBar){steepStatusBar();
+            if (isSetStatusBar) {
+                steepStatusBar();
             }
             //注入view
             ButterKnife.bind(this);
@@ -46,7 +51,7 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
             getData();
             loadData();
 
-        }else{
+        } else {
 
         }
 
@@ -55,26 +60,29 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
 
     /**
      * get异步请求网络数据
+     *
      * @param path
      * @param callback
      */
-    public void getAsyn(String path,int tag, Callback callback){
-        OkHttpUtils.get(path,callback);
+    public void getAsyn(String path, int tag, Callback callback) {
+        OkHttpUtils.get(path, callback);
     }
+
     /**
      * 沉浸状态栏
      */
-   private void steepStatusBar() {
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+    private void steepStatusBar() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 透明状态栏
-           getWindow().addFlags(
-                   WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-           // 透明导航栏
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 透明导航栏
 
-           getWindow().addFlags(
-                   WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            getWindow().addFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
-   }
+    }
+
     /**
      * [是否设置沉浸状态栏]
      *
@@ -84,13 +92,14 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
     public void setSteepStatusBar(boolean isSetStatusBar) {
         this.isSetStatusBar = isSetStatusBar;
     }
+
     /**
      * [页面跳转]
      *
      * @param clz
      */
     public void startActivity(Class<?> clz) {
-        startActivity(new Intent(BaseActivity.this,clz));
+        startActivity(new Intent(BaseActivity.this, clz));
     }
 
     /**
@@ -106,18 +115,20 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
         }
         startActivity(intent);
     }
+
     /**
      * 简化Toast
      */
-    public void showToast(String msg){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    public void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
+
     /**
      * 绑定控件
-     * @param resId
      *
+     * @param resId
      */
-    public   <T extends View> T findView (int resId) {
+    public <T extends View> T findView(int resId) {
         return (T) findViewById(resId);
     }
 
@@ -135,6 +146,7 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
         beginTransaction.commit();
     }
 //public <T extends  View>
+
     /**
      * 移除fragment
      *
@@ -158,6 +170,11 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
         FragmentTransaction beginTransaction = manager.beginTransaction();
         beginTransaction.replace(layoutId, fragment);
         beginTransaction.commit();
+    }
+
+    public FragmentManager getManger() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        return fragmentManager;
     }
 
     @Override
@@ -194,6 +211,6 @@ public abstract  class BaseActivity extends AppCompatActivity implements MyInter
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy()");
-        view=null;
+        view = null;
     }
 }
